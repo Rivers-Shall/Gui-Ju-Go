@@ -7,6 +7,7 @@ import (
 	"os"
 	"regexp"
 	"strconv"
+	"time"
 )
 
 type OperationType int
@@ -198,5 +199,8 @@ func checkFile(filename string) ResultType {
 
 func main() {
 	filename := os.Args[1]
-	fmt.Println(checkFile(filename))
+	start := time.Now()
+	checkFile(filename)
+	elapsed := time.Since(start)
+	fmt.Println(filename + "|" + strconv.FormatInt(elapsed.Microseconds(), 10))
 }
