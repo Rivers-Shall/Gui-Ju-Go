@@ -159,6 +159,7 @@ func checkTime(valuedEvents []*TimedEvent) ResultType {
 	maxStartTime := valuedEvents[0].StartTime
 	for i := 1; i < len(valuedEvents); i++ {
 		if valuedEvents[i].EndTime < maxStartTime {
+			fmt.Println("invalid time: " + strconv.FormatInt(valuedEvents[i].StartTime, 10))
 			return invalidTime
 		}
 		if valuedEvents[i].StartTime > maxStartTime {
@@ -191,6 +192,7 @@ func checkFile(filename string) ResultType {
 		event, ok = readV2Event[readValue]
 	}
 	if len(valuedEvents) != len(okEvents) {
+		fmt.Println("broken chain: " + strconv.FormatInt(valuedEvents[len(valuedEvents) - 1].StartTime, 10))
 		return incompleteCASChain
 	}
 
